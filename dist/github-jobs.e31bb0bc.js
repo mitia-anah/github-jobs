@@ -29803,6 +29803,15 @@ function GithubContext({
           };
         }
 
+      case 'SEARCH_FOR_JOBS':
+        {
+          if (action.type === "SEARCH_FOR_JOBS") {
+            return state.map(job => {
+              if (job.id !== action.lists.id) return job;
+            });
+          }
+        }
+
       default:
         break;
     }
@@ -32107,18 +32116,16 @@ function jobCards() {
   } = state;
   (0, _react.useEffect)(() => {
     async function fetchJobList() {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json');
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
       const jobList = await response.json();
-      console.log(jobList);
       dispatch({
         type: 'LOAD_JSON',
         lists: jobList
       });
-      console.log(lists);
     }
 
     fetchJobList();
-  });
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", null, loading && /*#__PURE__*/_react.default.createElement("p", null, "Loading..."), !loading && lists.map(list => /*#__PURE__*/_react.default.createElement(JobCardStyle, {
     key: list.id
   }, /*#__PURE__*/_react.default.createElement("img", {
@@ -32199,11 +32206,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _GithubContext = require("../GithubContext");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const FormStyle = _styledComponents.default.form`
 max-width: 60%;
@@ -32221,6 +32234,7 @@ fieldset {
 }
 input {
     border-style: none;
+    width: 100%;
 }
 button {
     background: #1E86FF;
@@ -32234,15 +32248,40 @@ button {
 `;
 
 function SearchBar() {
-  return /*#__PURE__*/_react.default.createElement(FormStyle, null, /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("input", {
-    placeholder: "",
-    type: "text"
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GithubContext.Context);
+  const {
+    lists
+  } = state;
+  const [filterJob, setFilterJob] = (0, _react.useState)('');
+
+  const filterJobByTitle = e => {
+    e.preventDefault();
+    const jobTitle = lists.filter(job => {
+      return job.toLowerCase() === e.target.value.toLowerCase();
+    });
+    dispatch({
+      type: 'SEARCH_FOR_JOBS',
+      jobTitle
+    });
+    console.log(jobTitle);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(FormStyle, {
+    onSubmit: filterJobByTitle
+  }, /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("input", {
+    placeholder: "Title, companies, expertise or benefits",
+    value: filterJob,
+    type: "text",
+    onChange: e => setFilterJob(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("button", null, "Search")));
 }
 
 var _default = SearchBar;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"component/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32327,7 +32366,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54331" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54367" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

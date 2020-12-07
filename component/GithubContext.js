@@ -11,6 +11,13 @@ function GithubContext({ children }) {
                     lists: action.lists
                 }
             }
+            case 'SEARCH_FOR_JOBS': {
+                if (action.type === "SEARCH_FOR_JOBS") {
+                    return state.map(job => {
+                        if (job.id !== action.lists.id) return job
+                    })
+                }
+            }
 
             default:
                 break;

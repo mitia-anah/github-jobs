@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { Context } from '../GithubContext'
 
 const FormStyle = styled.form`
 max-width: 60%;
@@ -17,6 +18,7 @@ fieldset {
 }
 input {
     border-style: none;
+    width: 100%;
 }
 button {
     background: #1E86FF;
@@ -29,12 +31,27 @@ button {
 }
 `;
 function SearchBar() {
+    const { state, dispatch } = useContext(Context)
+    const { lists } = state
+    const [filterJob, setFilterJob] = useState('')
+
+
+    const filterJobByTitle = (e) => {
+        e.preventDefault();
+        const jobTitle = lists.filter(job => {
+            return job.toLowerCase() === e.target.value.toLowerCase();
+        })
+        dispatch({ type: 'SEARCH_FOR_JOBS', jobTitle })
+        console.log(jobTitle);
+    }
     return (
-        <FormStyle>
+        <FormStyle onSubmit={filterJobByTitle}>
             <fieldset>
                 <input
-                    placeholder=""
+                    placeholder="Title, companies, expertise or benefits"
+                    value={filterJob}
                     type="text"
+                    onChange={e => setFilterJob(e.target.value)}
                 />
                 <button>Search</button>
             </fieldset>
