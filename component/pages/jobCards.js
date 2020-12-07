@@ -7,6 +7,13 @@ display: flex;
 fle-direction: row;
 align-items: center;
 gap: 2rem;
+border: 1px solid;
+background: #FFFFFF;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+border-radius: 4px;
+border-style: none;
+margin-block-end: 1rem;
+padding: 1rem;
 
 img{
    max-width: 50px;
@@ -17,6 +24,19 @@ img{
 }
 `;
 
+const DivStyle = styled.div`
+.type{ 
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 14px;
+    border: 1px solid #334680;
+    box-sizing: border-box;
+    border-radius: 4px;
+    max-width: 32%;
+  padding: 0.3rem;
+}
+}
+`;
 function jobCards() {
     const { state, dispatch } = useContext(Context)
     const { lists, loading } = state
@@ -32,16 +52,16 @@ function jobCards() {
         fetchJobList()
     })
     return (
-        <div>
+        <div >
             {loading && <p>Loading...</p>}
             {!loading && lists.map(list => (
                 <JobCardStyle key={list.id}>
                     <img src={list.company_logo} />
-                    <div>
+                    <DivStyle>
                         <p>{list.location}</p>
                         <h3>{list.title}</h3>
-                        <p>{list.type}</p>
-                    </div>
+                        <p className="type">{list.type}</p>
+                    </DivStyle>
                 </JobCardStyle>
             ))}
         </div>

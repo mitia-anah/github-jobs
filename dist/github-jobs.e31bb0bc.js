@@ -32066,6 +32066,13 @@ display: flex;
 fle-direction: row;
 align-items: center;
 gap: 2rem;
+border: 1px solid;
+background: #FFFFFF;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+border-radius: 4px;
+border-style: none;
+margin-block-end: 1rem;
+padding: 1rem;
 
 img{
    max-width: 50px;
@@ -32073,6 +32080,19 @@ img{
     border: 1px solid;
     border-style: none;
     border-radius: 4px;
+}
+`;
+const DivStyle = _styledComponents.default.div`
+.type{ 
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 14px;
+    border: 1px solid #334680;
+    box-sizing: border-box;
+    border-radius: 4px;
+    max-width: 32%;
+  padding: 0.3rem;
+}
 }
 `;
 
@@ -32103,10 +32123,73 @@ function jobCards() {
     key: list.id
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: list.company_logo
-  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, list.location), /*#__PURE__*/_react.default.createElement("h3", null, list.title), /*#__PURE__*/_react.default.createElement("p", null, list.type)))));
+  }), /*#__PURE__*/_react.default.createElement(DivStyle, null, /*#__PURE__*/_react.default.createElement("p", null, list.location), /*#__PURE__*/_react.default.createElement("h3", null, list.title), /*#__PURE__*/_react.default.createElement("p", {
+    className: "type"
+  }, list.type)))));
 }
 
 var _default = jobCards;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/pages/Location.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _GithubContext = require("../GithubContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const LocationStyle = _styledComponents.default.form`
+display: flex;
+flex-direction: column;
+
+`;
+
+function Location() {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GithubContext.Context);
+  const {
+    lists
+  } = state;
+  const [checked, setChecked] = (0, _react.useState)(false);
+  return /*#__PURE__*/_react.default.createElement(LocationStyle, null, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkBox"
+  }), '', "Full time"), /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "City, state, zip code or country"
+  }), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    name: "location",
+    type: "checkbox",
+    value: ""
+  }), '', "London"), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    name: "location",
+    type: "checkbox",
+    value: ""
+  }), '', "Amsterdam"), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    name: "location",
+    type: "checkbox",
+    value: ""
+  }), '', "New York"), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    name: "location",
+    type: "checkbox",
+    value: ""
+  }), '', "Berlin"));
+}
+
+var _default = Location;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/pages/SearchBar.js":[function(require,module,exports) {
 "use strict";
@@ -32169,21 +32252,40 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
 var _jobCards = _interopRequireDefault(require("./pages/jobCards"));
+
+var _Location = _interopRequireDefault(require("./pages/Location"));
 
 var _SearchBar = _interopRequireDefault(require("./pages/SearchBar"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const MainStyle = _styledComponents.default.main`
+display: flex;
+gap: 3rem;
+.location {
+    flex-basis: 30%;
+}
+.jobCard {
+    flex-basis: 40%;
+}
+`;
+
 function App() {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "App"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, "Github Jobs"), /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement(_SearchBar.default, null)), /*#__PURE__*/_react.default.createElement(_jobCards.default, null));
+  }, /*#__PURE__*/_react.default.createElement("h1", null, "Github Jobs"), /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement(_SearchBar.default, null)), /*#__PURE__*/_react.default.createElement(MainStyle, null, /*#__PURE__*/_react.default.createElement(_Location.default, {
+    className: "location"
+  }), /*#__PURE__*/_react.default.createElement(_jobCards.default, {
+    className: "jobCard"
+  })));
 }
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./pages/jobCards":"component/pages/jobCards.js","./pages/SearchBar":"component/pages/SearchBar.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./pages/jobCards":"component/pages/jobCards.js","./pages/Location":"component/pages/Location.js","./pages/SearchBar":"component/pages/SearchBar.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

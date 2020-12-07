@@ -1,12 +1,18 @@
+body {
+    background: lavender;
+}
 .App {
-    max-width: 80%;
-    min-width: 80%;
+    max-width: 95%;
+    min-width: 95%;
     margin: auto;
 }
 header {
     background-image: url('/backgroundImg.f44d7848.png');
     background-repeat: no-repeat;
     background-size: cover;
+    margin-block-end: 3rem;
 }
+
+
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */
