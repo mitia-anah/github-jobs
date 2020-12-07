@@ -39,7 +39,7 @@ function SearchBar() {
     const filterJobByTitle = (e) => {
         e.preventDefault();
         const jobTitle = lists.filter(job => {
-            return job.toLowerCase() === e.target.value.toLowerCase();
+            return job.title.toLowerCase() === e.target.value.toLowerCase();
         })
         dispatch({ type: 'SEARCH_FOR_JOBS', jobTitle })
         console.log(jobTitle);

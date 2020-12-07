@@ -29806,9 +29806,7 @@ function GithubContext({
       case 'SEARCH_FOR_JOBS':
         {
           if (action.type === "SEARCH_FOR_JOBS") {
-            return state.map(job => {
-              if (job.id !== action.lists.id) return job;
-            });
+            return [...state];
           }
         }
 
@@ -32116,7 +32114,7 @@ function jobCards() {
   } = state;
   (0, _react.useEffect)(() => {
     async function fetchJobList() {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json');
       const jobList = await response.json();
       dispatch({
         type: 'LOAD_JSON',
@@ -32172,6 +32170,9 @@ function Location() {
     lists
   } = state;
   const [checked, setChecked] = (0, _react.useState)(false);
+
+  function filteredJobByTitle() {}
+
   return /*#__PURE__*/_react.default.createElement(LocationStyle, null, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
     type: "checkBox"
   }), '', "Full time"), /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
@@ -32260,7 +32261,7 @@ function SearchBar() {
   const filterJobByTitle = e => {
     e.preventDefault();
     const jobTitle = lists.filter(job => {
-      return job.toLowerCase() === e.target.value.toLowerCase();
+      return job.title.toLowerCase() === e.target.value.toLowerCase();
     });
     dispatch({
       type: 'SEARCH_FOR_JOBS',
@@ -32366,7 +32367,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54367" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50236" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

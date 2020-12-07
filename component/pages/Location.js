@@ -13,6 +13,10 @@ function Location() {
     const { lists } = state
     const [checked, setChecked] = useState(false)
 
+    function filteredJobByTitle() {
+
+    }
+
 
     return (
         <LocationStyle>

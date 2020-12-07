@@ -43,7 +43,7 @@ function jobCards() {
 
     useEffect(() => {
         async function fetchJobList() {
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
+            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json');
             const jobList = await response.json();
             dispatch({ type: 'LOAD_JSON', lists: jobList })
         }
