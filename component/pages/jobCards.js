@@ -3,9 +3,6 @@ import styled from 'styled-components'
 import { Context } from '../GithubContext'
 
 const JobCardStyle = styled.div`
-max-width: 80%;
-min-width: 80%;
-margin: auto;
 display: flex;
 fle-direction: row;
 align-items: center;

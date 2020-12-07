@@ -1,1 +1,1 @@
-{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA","file":"style.e308ff8e.css","sourceRoot":"..","sourcesContent":[""]}
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA;IACI,cAAc;IACd,cAAc;IACd,YAAY;AAChB;AACA;IACI,8DAA4C;IAC5C,4BAA4B;IAC5B,sBAAsB;AAC1B","file":"style.e308ff8e.css","sourceRoot":"..","sourcesContent":[".App {\r\n    max-width: 80%;\r\n    min-width: 80%;\r\n    margin: auto;\r\n}\r\nheader {\r\n    background-image: url('./backgroundImg.png');\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n}"]}

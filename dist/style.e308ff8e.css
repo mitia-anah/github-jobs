@@ -1,2 +1,12 @@
+.App {
+    max-width: 80%;
+    min-width: 80%;
+    margin: auto;
+}
+header {
+    background-image: url('/backgroundImg.f44d7848.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */
