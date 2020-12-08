@@ -8,12 +8,14 @@ function GithubContext({ children }) {
                 return {
                     ...state,
                     loading: false,
-                    lists: action.lists
+                    jobs: action.jobs
                 }
             }
-            case 'SEARCH_FOR_JOBS': {
-                if (action.type === "SEARCH_FOR_JOBS") {
-                    return [...state]
+            case 'LOAD_DESCRIPTION': {
+                return {
+                    ...state,
+                    loading: false,
+                    description: action.description
                 }
             }
 
@@ -22,7 +24,8 @@ function GithubContext({ children }) {
         }
     }, {
         loading: true,
-        lists: []
+        jobs: [],
+        description: ''
     })
     return (
         <Context.Provider

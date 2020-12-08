@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { Context } from '../GithubContext'
 
@@ -39,22 +40,24 @@ const DivStyle = styled.div`
 `;
 function jobCards() {
     const { state, dispatch } = useContext(Context)
-    const { lists, loading } = state
+    const { jobs, loading } = state
 
     useEffect(() => {
         async function fetchJobList() {
             const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json');
             const jobList = await response.json();
-            dispatch({ type: 'LOAD_JSON', lists: jobList })
+            dispatch({ type: 'LOAD_JSON', jobs: jobList })
         }
         fetchJobList()
     }, [])
     return (
         <div >
             {loading && <p>Loading...</p>}
-            {!loading && lists.map(list => (
+            {!loading && jobs.map(list => (
                 <JobCardStyle key={list.id}>
-                    <img src={list.company_logo} />
+                    <Link to='/imagedetail'>
+                        <img src={list.company_logo} />
+                    </Link>
                     <DivStyle>
                         <p>{list.location}</p>
                         <h3>{list.title}</h3>

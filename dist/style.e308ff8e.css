@@ -5,6 +5,8 @@ body {
     max-width: 95%;
     min-width: 95%;
     margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 header {
     background-image: url('/backgroundImg.f44d7848.png');
@@ -12,7 +14,29 @@ header {
     background-size: cover;
     margin-block-end: 3rem;
 }
+main{
+    display: flex;
+    flex-direction: column;
+}
 
+
+@media (min-width: 800px) {
+main, .detail-style{
+    display: flex;
+    flex-direction: row;
+}
+.detail-style {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+}
+.side-bar{
+    flex-basis: 20%;
+}
+.content {
+    flex-basis: 60%;
+}
+}
 
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

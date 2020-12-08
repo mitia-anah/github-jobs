@@ -13,9 +13,9 @@ function Location() {
     const { lists } = state
     const [checked, setChecked] = useState(false)
 
-    function filteredJobByTitle() {
+    // function filteredJobByTitle() {
 
-    }
+    // }
 
 
     return (

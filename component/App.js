@@ -1,32 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
-import JobCard from './pages/jobCards'
-import Location from './pages/Location'
-import SearchBar from './pages/SearchBar'
-
-const MainStyle = styled.main`
-display: flex;
-gap: 3rem;
-.location {
-    flex-basis: 30%;
-}
-.jobCard {
-    flex-basis: 40%;
-}
-`;
+import PageLink from './PageLink'
+import { Switch, Route } from 'react-router-dom'
+import ImageDetail from './pages/ImageDetail'
 
 
 function App() {
     return (
-        <div className='App'>
+        <div>
             <h1>Github Jobs</h1>
-            <header>
-                <SearchBar />
-            </header>
-            <MainStyle>
-                <Location className='location' />
-                <JobCard className='jobCard' />
-            </MainStyle>
+            <Switch>
+                <Route exact path='/'>
+                    <PageLink />
+                </Route>
+                <Route path='/imagedetail'>
+                    <ImageDetail />
+                </Route>
+            </Switch>
         </div>
     )
 }
