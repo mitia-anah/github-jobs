@@ -3,6 +3,7 @@ import { Context } from '../GithubContext'
 
 function Filters() {
     const { state, dispatch } = useContext(Context)
+
     return (
         <div>
 

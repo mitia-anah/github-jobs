@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Context } from '../GithubContext'
 
@@ -10,16 +10,33 @@ flex-direction: column;
 
 function Location() {
     const { state, dispatch } = useContext(Context)
-    const { lists } = state
-    const [checked, setChecked] = useState(false)
+    const { lists, fullTime } = state
+    const [fullTime, setFulltimes] = useState(true)
 
-    // function filteredJobByTitle() {
+    const handleClick = () => {
+        setFulltimes(!fullTime);
+        dispatch({ type: "FULL_TIME", value: true });
+    };
+    useEffect(() => {
+        async function jobFullTime() {
+            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location');
+            const filterFullTime = await response.json();
+            dispatch({ type: 'LOCATION', fullTime: filterFullTime })
+        }
+        jobFullTime()
+    }, [])
 
-    // }
+    const locations = [
+        { id: 1, name: "London" },
+        { id: 2, name: "Amsterdam" },
+        { id: 3, name: "New York" },
+        { id: 4, name: "Berlin" }
+    ]
+
 
 
     return (
-        <LocationStyle>
+        <LocationStyle onSubmit={handleClick}>
             <label>
                 <input
                     type="checkBox"

@@ -18,15 +18,15 @@ time {
 `;
 function ImageDetail() {
     const { state, dispatch } = useContext(Context)
-    const { description, loading, jobs } = state
+    const { details, loading, jobs } = state
 
     useEffect(() => {
-        async function fetchDescription() {
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=0');
-            const jobDescription = await response.json();
-            dispatch({ type: 'LOAD_DESCRIPTION', description: jobDescription })
+        async function fetchDetails() {
+            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
+            const jobDetails = await response.json();
+            dispatch({ type: 'LOAD_DETAILS', details: jobDetails })
         }
-        fetchDescription()
+        fetchDetails()
     }, [])
 
     return (
@@ -59,7 +59,7 @@ function ImageDetail() {
                             )}
                             <h4>{job.company}</h4>
                             <div className="job-location">
-                                <i class="ri-earth-fill"></i>
+                                <i className="ri-earth-fill"></i>
                                 <span>{job.location}</span>
                             </div>
                         </div>

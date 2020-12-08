@@ -29803,21 +29803,40 @@ function GithubContext({
           };
         }
 
-      case 'LOAD_DESCRIPTION':
+      case 'LOAD_DETAILS':
         {
           return { ...state,
             loading: false,
-            description: action.description
+            details: action.details
+          };
+        }
+
+      case 'FULL_TIME':
+        {
+          const jobFullTimes = state.job.map(fullTimes => {
+            if (fullTimes.id === action.id) {
+              return { ...fullTimes,
+                fullTime: fullTimes.filter(time => time.type !== state.jobFullTimes)
+              };
+            }
+
+            return fullTimes;
+          });
+          return { ...state,
+            fullTime: jobFullTimes
           };
         }
 
       default:
         break;
     }
+
+    return state;
   }, {
     loading: true,
     jobs: [],
-    description: ''
+    details: '',
+    fullTime: true
   });
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
@@ -35951,12 +35970,47 @@ function Location() {
     dispatch
   } = (0, _react.useContext)(_GithubContext.Context);
   const {
-    lists
+    lists,
+    fullTime
   } = state;
-  const [checked, setChecked] = (0, _react.useState)(false); // function filteredJobByTitle() {
-  // }
+  const [fullTimes, setFulltimes] = (0, _react.useState)(true);
 
-  return /*#__PURE__*/_react.default.createElement(LocationStyle, null, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+  const handleClick = () => {
+    setFulltimes(!fullTimes);
+    dispatch({
+      type: "FULL_TIME",
+      value: true
+    });
+  };
+
+  (0, _react.useEffect)(() => {
+    async function jobFullTime() {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location');
+      const filterFullTime = await response.json();
+      dispatch({
+        type: 'LOCATION',
+        details: filterFullTime
+      });
+    }
+
+    jobFullTime();
+  }, []);
+  const locations = [{
+    id: 1,
+    name: "London"
+  }, {
+    id: 2,
+    name: "Amsterdam"
+  }, {
+    id: 3,
+    name: "New York"
+  }, {
+    id: 4,
+    name: "Berlin"
+  }];
+  return /*#__PURE__*/_react.default.createElement(LocationStyle, {
+    onSubmit: handleClick
+  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
     type: "checkBox"
   }), '', "Full time"), /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
@@ -54321,21 +54375,21 @@ function ImageDetail() {
     dispatch
   } = (0, _react.useContext)(_GithubContext.Context);
   const {
-    description,
+    details,
     loading,
     jobs
   } = state;
   (0, _react.useEffect)(() => {
-    async function fetchDescription() {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=0');
-      const jobDescription = await response.json();
+    async function fetchDetails() {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
+      const jobDetails = await response.json();
       dispatch({
-        type: 'LOAD_DESCRIPTION',
-        description: jobDescription
+        type: 'LOAD_DETAILS',
+        details: jobDetails
       });
     }
 
-    fetchDescription();
+    fetchDetails();
   }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "details"
@@ -54366,7 +54420,7 @@ function ImageDetail() {
   }), /*#__PURE__*/_react.default.createElement("h4", null, job.company), /*#__PURE__*/_react.default.createElement("div", {
     className: "job-location"
   }, /*#__PURE__*/_react.default.createElement("i", {
-    class: "ri-earth-fill"
+    className: "ri-earth-fill"
   }), /*#__PURE__*/_react.default.createElement("span", null, job.location))), /*#__PURE__*/_react.default.createElement("div", {
     className: "description"
   }, /*#__PURE__*/_react.default.createElement("p", null, job.description))))));
@@ -54447,7 +54501,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56777" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56488" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
