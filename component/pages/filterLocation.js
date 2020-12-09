@@ -45,8 +45,8 @@ function filterLocation() {
     };
 
     const handleClick = () => {
-        dispatch(fulltime);
-        addFilter({ type: "FULLTIME" });
+        dispatch(!fulltime);
+        addFilter({ type: "FULLTIME", value: false });
     };
     useEffect(() => {
         setSelectedCity(locations[0]);
