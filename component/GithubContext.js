@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
+import React, { createContext, useReducer } from 'react'
 const Context = createContext()
 
 function GithubContext({ children }) {
@@ -24,6 +24,9 @@ function GithubContext({ children }) {
             case 'LOCATION': {
                 return { ...state, location: action.location }
             }
+            case 'DESCRIPTION': {
+                return { ...state, description: action.description }
+            }
             default:
                 return state
         }
@@ -36,14 +39,10 @@ function GithubContext({ children }) {
         fulltime: true
     })
 
-
     return (
-        <Context.Provider
-            value={{ state, dispatch }}
-        >
+        <Context.Provider value={{ state, dispatch }}>
             {children}
         </Context.Provider>
     )
-
 }
 export { GithubContext, Context }

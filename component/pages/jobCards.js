@@ -44,10 +44,8 @@ const DivStyle = styled.div`
 }
 `;
 
-
 function jobCards() {
     const { state, dispatch } = useContext(Context)
-
     const { jobs, loading, description, fulltime, location } = state
 
     const formattedDate = (date) => {
@@ -64,8 +62,8 @@ function jobCards() {
         }
         fetchJobList()
     }, [])
-    return (
 
+    return (
         <div >
             {loading && <p>Loading...</p>}
             {!loading && jobs.map(list => (

@@ -45,14 +45,13 @@ function filterLocation() {
     };
 
     const handleClick = () => {
-        dispatch(!fulltime);
-        addFilter({ type: "FULLTIME", value: false });
+        dispatch(fulltime);
+        addFilter({ type: "FULLTIME" });
     };
     useEffect(() => {
         setSelectedCity(locations[0]);
-        addFilter({ type: "CITY", value: locations[0] });
+        addFilter({ type: "CITY", value: locations });
     }, []);
-
 
     const locations = [
         { id: 1, name: "London" },
@@ -60,8 +59,6 @@ function filterLocation() {
         { id: 3, name: "New York" },
         { id: 4, name: "Berlin" }
     ]
-
-
 
     return (
         <LocationStyle onSubmit={handleClick}>

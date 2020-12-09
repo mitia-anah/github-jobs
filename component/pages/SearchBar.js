@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
-import { Context } from '../GithubContext'
 
 const FormStyle = styled.form`
 max-width: 60%;
@@ -31,8 +30,6 @@ button {
 }
 `;
 function SearchBar({ addFilter }) {
-    const { state, dispatch } = useContext(Context)
-    const { lists } = state
     const [description, setDescription] = useState("");
 
     const handleSearch = (e) => {
@@ -40,7 +37,6 @@ function SearchBar({ addFilter }) {
             addFilter({ type: "DESCRIPTION", value: description });
         }
     };
-
 
     return (
         <FormStyle onSubmit={handleSearch}>

@@ -29825,6 +29825,13 @@ function GithubContext({
           };
         }
 
+      case 'DESCRIPTION':
+        {
+          return { ...state,
+            description: action.description
+          };
+        }
+
       default:
         return state;
     }
@@ -54219,10 +54226,9 @@ function filterLocation() {
   };
 
   const handleClick = () => {
-    dispatch(!fulltime);
+    dispatch(fulltime);
     addFilter({
-      type: "FULLTIME",
-      value: false
+      type: "FULLTIME"
     });
   };
 
@@ -54230,7 +54236,7 @@ function filterLocation() {
     setSelectedCity(locations[0]);
     addFilter({
       type: "CITY",
-      value: locations[0]
+      value: locations
     });
   }, []);
   const locations = [{
@@ -54289,8 +54295,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _GithubContext = require("../GithubContext");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -54329,13 +54333,6 @@ button {
 function SearchBar({
   addFilter
 }) {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GithubContext.Context);
-  const {
-    lists
-  } = state;
   const [description, setDescription] = (0, _react.useState)("");
 
   const handleSearch = e => {
@@ -54360,7 +54357,7 @@ function SearchBar({
 
 var _default = SearchBar;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/PageLink.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"component/PageLink.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
