@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
 const Context = createContext()
 
 function GithubContext({ children }) {
@@ -18,31 +18,25 @@ function GithubContext({ children }) {
                     details: action.details
                 }
             }
-            case 'FULL_TIME': {
-                const jobFullTimes = state.job.map(fullTimes => {
-                    if (fullTimes.id === action.id) {
-                        return {
-                            ...fullTimes,
-                            fullTime: fullTimes.filter(time => time.type !== state.jobFullTimes),
-                        };
-                    }
-                    return fullTimes;
-                });
-                return {
-                    ...state,
-                    fullTime: jobFullTimes,
-                };
+            case 'FULLTIME': {
+                return { ...state, fulltime: action.fulltime }
+            }
+            case 'LOCATION': {
+                return { ...state, location: action.location }
             }
             default:
-                break;
+                return state
         }
-        return state
     }, {
         loading: true,
         jobs: [],
         details: '',
-        fullTime: true
+        description: '',
+        location: [],
+        fulltime: true
     })
+
+
     return (
         <Context.Provider
             value={{ state, dispatch }}

@@ -1,7 +1,7 @@
 import React from 'react'
 import PageLink from './PageLink'
 import { Switch, Route } from 'react-router-dom'
-import ImageDetail from './pages/ImageDetail'
+import JobDetail from './pages/jobDetail'
 
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
                 <Route exact path='/'>
                     <PageLink />
                 </Route>
-                <Route path='/imagedetail'>
-                    <ImageDetail />
+                <Route path='/job/:jobId'>
+                    <JobDetail />
                 </Route>
             </Switch>
         </div>

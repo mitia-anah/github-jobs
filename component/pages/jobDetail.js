@@ -16,9 +16,27 @@ time {
     color: #B7BCCE
 }
 `;
-function ImageDetail() {
+function jobDetail() {
     const { state, dispatch } = useContext(Context)
     const { details, loading, jobs } = state
+    const [job, setJob] = useState(null);
+
+    const getJobDetail = async () => {
+        setLoading(true);
+        try {
+            const job = await findOneJob(jobId);
+            setJob(job);
+            dispatch(false);
+        } catch (e) {
+            console.log(`Error`, e);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getJobDetail();
+    }, []);
+
 
     useEffect(() => {
         async function fetchDetails() {
@@ -75,4 +93,4 @@ function ImageDetail() {
     )
 }
 
-export default ImageDetail
+export default jobDetail

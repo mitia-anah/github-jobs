@@ -30,28 +30,27 @@ button {
     border-style: none;
 }
 `;
-function SearchBar() {
+function SearchBar({ addFilter }) {
     const { state, dispatch } = useContext(Context)
     const { lists } = state
-    const [filterJob, setFilterJob] = useState('')
+    const [description, setDescription] = useState("");
+
+    const handleSearch = (e) => {
+        if (e.key === "Enter") {
+            addFilter({ type: "DESCRIPTION", value: description });
+        }
+    };
 
 
-    const filterJobByTitle = (e) => {
-        e.preventDefault();
-        const jobTitle = lists.filter(job => {
-            return job.title.toLowerCase() === e.target.value.toLowerCase();
-        })
-        dispatch({ type: 'SEARCH_FOR_JOBS', jobTitle })
-        console.log(jobTitle);
-    }
     return (
-        <FormStyle onSubmit={filterJobByTitle}>
+        <FormStyle onSubmit={handleSearch}>
             <fieldset>
                 <input
-                    placeholder="Title, companies, expertise or benefits"
-                    value={filterJob}
                     type="text"
-                    onChange={e => setFilterJob(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Title, companies, expertise"
+                    onKeyDown={handleSearch}
                 />
                 <button>Search</button>
             </fieldset>

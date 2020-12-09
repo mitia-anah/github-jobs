@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import JobCard from './pages/jobCards'
-import Location from './pages/Location'
+import FilterLocation from './pages/filterLocation'
 import SearchBar from './pages/SearchBar'
 
 const MainStyle = styled.main`
@@ -23,7 +23,7 @@ function PageLink() {
                 <SearchBar />
             </header>
             <MainStyle>
-                <Location className='location' />
+                <FilterLocation className='location' />
                 <JobCard className='jobCard' />
             </MainStyle>
         </div>
