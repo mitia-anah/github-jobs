@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { Context } from '../GithubContext'
+import { formatDistance } from "date-fns";
+
 
 const JobCardStyle = styled.div`
 display: flex;
@@ -45,7 +47,12 @@ const DivStyle = styled.div`
 
 function jobCards() {
     const { state, dispatch } = useContext(Context)
+
     const { jobs, loading, description, fulltime, location } = state
+
+    const formattedDate = (date) => {
+        return formatDistance(new Date(date), new Date());
+    };
 
     useEffect(() => {
         async function fetchJobList() {
@@ -70,6 +77,22 @@ function jobCards() {
                             <h3>{list.title}</h3>
                             <p className="type">{list.type}</p>
                         </DivStyle>
+                        <div className="job-meta">
+                            <div className="job-location">
+                                <div className="icon">
+                                    <i className="ri-earth-fill"></i>
+                                </div>
+                                {list.location}
+                            </div>
+                            <div className="job-date">
+                                <div className="icon">
+                                    <i className="ri-timer-2-line"></i>
+                                </div>
+                                <time dateTime={list.created_at}>
+                                    {formattedDate(list.created_at)}
+                                </time>
+                            </div>
+                        </div>
                     </JobCardStyle>
                 </Link>
             ))}

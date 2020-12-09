@@ -1,13 +1,5 @@
 # Github Jobs
 
-Here we are, the last graded project of this semester.
-
-Your challenge: Create a job search using an API, and use React to handle the frontend. Don’t look at the existing solution. Fulfill user stories below:
-
-![image](./assets/1.png)
-![image](./assets/2.png)
-![image](./assets/3.png)
-
 - User story: I can see a list of jobs in a city by default
 - User story: I can search for jobs with a given keyword
 - User story: I can search for jobs with a city name, zip code or other location
@@ -19,8 +11,6 @@ Your challenge: Create a job search using an API, and use React to handle the fr
 - User story (optional): I can see a list of jobs in the closest city from my location by default
 - User story (optional): I can see jobs in different pages, 5 items each page
 
-You’ll also have to apply a few concept we learned in class, such as a **reducer** and a global **context**. And there will be a bonus for those who can find a use case for a **compound component**.
-
 **Icon**: https://google.github.io/material-design-icons/ (you can also use the react-icons package)
 
 **API**: https://jobs.github.com/api. Use data from the API to create questions and answers.
@@ -31,25 +21,19 @@ You’ll also have to apply a few concept we learned in class, such as a **reduc
 
 **Live app** : https://jolly-heisenberg-20c49e.netlify.app/
 
-Once you completed, polish a nice readme submit your solutions on this link : https://forms.gle/Xg6kJMKmrBkyTe3TA, by providing URLs for both GitHub repository and live app on Netlify.
-
 For the custom domain url you'll enter in netlify, please use the following naming convention : **github-jobs-_YOUR_FIRSTNAME_.netlify.app** (replace YOUR_FIRSTNAME by your firstname)
-
-Good luck everybody!
-
-Template for your readme :
 
 <!-- Please update value in the {}  -->
 
-<h1 align="center">{Your project name}</h1>
+<h1 align="center">{Github Jobs}</h1>
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://{https://github.com/mitia-anah/github-jobs}">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://{https://github-job-rosny.netlify.app/}">
       Solution
     </a>
   </h3>
@@ -75,8 +59,16 @@ Template for your readme :
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
 -   Where can I see your demo?
+
 -   What was your experience?
--   In a few sentences, explain the structure of your project.
+
+## Structure of the project
+- I have created two folders, which are Component and Page. Inside of the component folder is the place where I stored my App.js and contex.js file and I have all the main components files inside of the page folder, such as 'filterLocation, jobDetail, jobCard...etc'.
+* filterLocation : Is a file that contains my filtering functionality. There you can see every thing about filtering, such as 'City, Title...'
+*  JobDetail: is a file contains the job details. This file is linked to the jobCard, and when you click one of the job's card in the jobCard page, you will go to a new page, which is this jobDetail file. Inside of this file, you will see details of jobs with long descriptions.
+* jobCard: this file is place where I call the API link from 'github job'. I created a Job variable called Jobs and I initialized it with an empty array,which handle the data from the API link. I mapped through this array in order to get all the properties that I used inside of the jobCard.js file.  
+
+
 -   If you had more time, what area of your project would you improve?
 -   Did you learn anything new while working on this project?
 -   What was the most challenging part for you?
@@ -117,5 +109,5 @@ $ npm start
 
 ## Contact
 
--   Website [your-website.com](https://{your-web-site-link})
--   GitHub [@your-username](https://{github.com/your-usermame})
+-   Website [your-website.com](https://github-job-rosny.netlify.app/)
+-   GitHub [@your-username](https://github.com/mitia-anah/github-jobs)

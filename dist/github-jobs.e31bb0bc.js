@@ -35845,373 +35845,7 @@ exports.ServerStyleSheet = Ue;
 "production" !== "development" && "undefined" != typeof navigator && "ReactNative" === navigator.product && console.warn("It looks like you've imported 'styled-components' on React Native.\nPerhaps you're looking to import 'styled-components/native'?\nRead more about this at https://www.styled-components.com/docs/basics#react-native"), "production" !== "development" && "test" !== "development" && (window["__styled-components-init__"] = window["__styled-components-init__"] || 0, 1 === window["__styled-components-init__"] && console.warn("It looks like there are several instances of 'styled-components' initialized in this application. This may cause dynamic styles to not render properly, errors during the rehydration process, a missing theme prop, and makes your application bigger without good reason.\n\nSee https://s-c.sh/2BAXzed for more info."), window["__styled-components-init__"] += 1);
 var _default = qe;
 exports.default = _default;
-},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"component/pages/jobCards.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactRouterDom = require("react-router-dom");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _GithubContext = require("../GithubContext");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const JobCardStyle = _styledComponents.default.div`
-display: flex;
-fle-direction: row;
-align-items: center;
-gap: 2rem;
-border: 1px solid;
-background: #FFFFFF;
-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-border-radius: 4px;
-border-style: none;
-margin-block-end: 1rem;
-padding: 1rem;
-a {
-    text-decoration: none;
-    color: black;
-}
-img{
-   max-width: 50px;
-   max-height: 50px;
-    border: 1px solid;
-    border-style: none;
-    border-radius: 4px;
-}
-`;
-const DivStyle = _styledComponents.default.div`
-.type{ 
-    border: 1px solid;
-    font-size: 12px;
-    line-height: 14px;
-    border: 1px solid #334680;
-    box-sizing: border-box;
-    border-radius: 4px;
-    max-width: 32%;
-  padding: 0.3rem;
-}
-}
-`;
-
-function jobCards() {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GithubContext.Context);
-  const {
-    jobs,
-    loading,
-    description,
-    fulltime,
-    location
-  } = state;
-  (0, _react.useEffect)(() => {
-    async function fetchJobList() {
-      const URL = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${description}&location=${location}&full_time=${fulltime}`;
-      const res = await fetch(URL);
-      console.log(res);
-      const jobList = await res.json();
-      dispatch({
-        type: 'LOAD_JSON',
-        jobs: jobList
-      });
-    }
-
-    fetchJobList();
-  }, []);
-  return /*#__PURE__*/_react.default.createElement("div", null, loading && /*#__PURE__*/_react.default.createElement("p", null, "Loading..."), !loading && jobs.map(list => /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: `job/${list.id}`,
-    href: list.company_url,
-    key: list.id,
-    className: "job"
-  }, /*#__PURE__*/_react.default.createElement(JobCardStyle, {
-    key: list.id
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    src: list.company_logo
-  }), /*#__PURE__*/_react.default.createElement(DivStyle, null, /*#__PURE__*/_react.default.createElement("p", null, list.location), /*#__PURE__*/_react.default.createElement("h3", null, list.title), /*#__PURE__*/_react.default.createElement("p", {
-    className: "type"
-  }, list.type))))));
-}
-
-var _default = jobCards;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/pages/filterLocation.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _GithubContext = require("../GithubContext");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const LocationStyle = _styledComponents.default.form`
-display: flex;
-flex-direction: column;
-`;
-
-function filterLocation() {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GithubContext.Context);
-  const {
-    jobs,
-    fulltime
-  } = state;
-  const [selectedCity, setSelectedCity] = (0, _react.useState)(null);
-  const [location, setLocation] = (0, _react.useState)("");
-
-  const addFilter = filter => {
-    switch (filter.type) {
-      case "LOCATION":
-        dispatch(filter.value);
-        break;
-
-      case "FULLTIME":
-        dispatch(filter.value);
-        break;
-
-      case "DESCRIPTION":
-        dispatch(filter.value);
-        break;
-    }
-  };
-
-  const handleCity = location => {
-    if (selectedCity && location.id === selectedCity.id) {
-      setSelectedCity(null);
-      addFilter({
-        type: "LOCATION",
-        value: ""
-      });
-    } else {
-      setSelectedCity(location);
-      addFilter({
-        type: "LOCATION",
-        value: location.name
-      });
-    }
-  };
-
-  const handleLocation = e => {
-    if (e.key === "Enter") {
-      setSelectedCity(null);
-      addFilter({
-        type: "LOCATION",
-        value: location
-      });
-    }
-  };
-
-  const handleClick = () => {
-    dispatch(!fulltime);
-    addFilter({
-      type: "FULLTIME",
-      value: false
-    });
-  };
-
-  (0, _react.useEffect)(() => {
-    setSelectedCity(locations[0]);
-    addFilter({
-      type: "CITY",
-      value: locations[0]
-    });
-  }, []);
-  const locations = [{
-    id: 1,
-    name: "London"
-  }, {
-    id: 2,
-    name: "Amsterdam"
-  }, {
-    id: 3,
-    name: "New York"
-  }, {
-    id: 4,
-    name: "Berlin"
-  }];
-  return /*#__PURE__*/_react.default.createElement(LocationStyle, {
-    onSubmit: handleClick
-  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    id: "fulltime",
-    checked: fulltime,
-    onChange: handleClick
-  }), "Full time"), /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    id: "city",
-    value: location,
-    onChange: e => setLocation(e.target.value),
-    onKeyDown: handleLocation,
-    placeholder: "City, state, zip code or country"
-  }), /*#__PURE__*/_react.default.createElement("div", {
-    className: "cities"
-  }, locations.map(location => /*#__PURE__*/_react.default.createElement("div", {
-    className: "checkbox",
-    key: location.id
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    checked: selectedCity ? location.id === selectedCity.id : false,
-    id: location.id,
-    onChange: () => handleCity(location)
-  }), /*#__PURE__*/_react.default.createElement("label", {
-    htmlFor: location.id
-  }, location.name)))));
-}
-
-var _default = filterLocation;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/pages/SearchBar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _GithubContext = require("../GithubContext");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const FormStyle = _styledComponents.default.form`
-max-width: 60%;
-min-width: 60%;
-margin: auto;
-padding: 2rem;
-fieldset {
-    background: #FFFFFF;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    border-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-input {
-    border-style: none;
-    width: 100%;
-}
-button {
-    background: #1E86FF;
-    border-radius: 4px;
-    color: #ffffff;
-    width: 100px;
-    
-    padding:0.5rem;
-    border-style: none;
-}
-`;
-
-function SearchBar({
-  addFilter
-}) {
-  const {
-    state,
-    dispatch
-  } = (0, _react.useContext)(_GithubContext.Context);
-  const {
-    lists
-  } = state;
-  const [description, setDescription] = (0, _react.useState)("");
-
-  const handleSearch = e => {
-    if (e.key === "Enter") {
-      addFilter({
-        type: "DESCRIPTION",
-        value: description
-      });
-    }
-  };
-
-  return /*#__PURE__*/_react.default.createElement(FormStyle, {
-    onSubmit: handleSearch
-  }, /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    value: description,
-    onChange: e => setDescription(e.target.value),
-    placeholder: "Title, companies, expertise",
-    onKeyDown: handleSearch
-  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")));
-}
-
-var _default = SearchBar;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/PageLink.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _jobCards = _interopRequireDefault(require("./pages/jobCards"));
-
-var _filterLocation = _interopRequireDefault(require("./pages/filterLocation"));
-
-var _SearchBar = _interopRequireDefault(require("./pages/SearchBar"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const MainStyle = _styledComponents.default.main`
-display: flex;
-gap: 3rem;
-.location {
-    flex-basis: 30%;
-}
-.jobCard {
-    flex-basis: 40%;
-}
-`;
-
-function PageLink() {
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "App"
-  }, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement(_SearchBar.default, null)), /*#__PURE__*/_react.default.createElement(MainStyle, null, /*#__PURE__*/_react.default.createElement(_filterLocation.default, {
-    className: "location"
-  }), /*#__PURE__*/_react.default.createElement(_jobCards.default, {
-    className: "jobCard"
-  })));
-}
-
-var _default = PageLink;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./pages/jobCards":"component/pages/jobCards.js","./pages/filterLocation":"component/pages/filterLocation.js","./pages/SearchBar":"component/pages/SearchBar.js"}],"node_modules/date-fns/esm/_lib/toInteger/index.js":[function(require,module,exports) {
+},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/date-fns/esm/_lib/toInteger/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54381,7 +54015,395 @@ Object.keys(_index197).forEach(function (key) {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./add/index.js":"node_modules/date-fns/esm/add/index.js","./addBusinessDays/index.js":"node_modules/date-fns/esm/addBusinessDays/index.js","./addDays/index.js":"node_modules/date-fns/esm/addDays/index.js","./addHours/index.js":"node_modules/date-fns/esm/addHours/index.js","./addISOWeekYears/index.js":"node_modules/date-fns/esm/addISOWeekYears/index.js","./addMilliseconds/index.js":"node_modules/date-fns/esm/addMilliseconds/index.js","./addMinutes/index.js":"node_modules/date-fns/esm/addMinutes/index.js","./addMonths/index.js":"node_modules/date-fns/esm/addMonths/index.js","./addQuarters/index.js":"node_modules/date-fns/esm/addQuarters/index.js","./addSeconds/index.js":"node_modules/date-fns/esm/addSeconds/index.js","./addWeeks/index.js":"node_modules/date-fns/esm/addWeeks/index.js","./addYears/index.js":"node_modules/date-fns/esm/addYears/index.js","./areIntervalsOverlapping/index.js":"node_modules/date-fns/esm/areIntervalsOverlapping/index.js","./closestIndexTo/index.js":"node_modules/date-fns/esm/closestIndexTo/index.js","./closestTo/index.js":"node_modules/date-fns/esm/closestTo/index.js","./compareAsc/index.js":"node_modules/date-fns/esm/compareAsc/index.js","./compareDesc/index.js":"node_modules/date-fns/esm/compareDesc/index.js","./differenceInBusinessDays/index.js":"node_modules/date-fns/esm/differenceInBusinessDays/index.js","./differenceInCalendarDays/index.js":"node_modules/date-fns/esm/differenceInCalendarDays/index.js","./differenceInCalendarISOWeekYears/index.js":"node_modules/date-fns/esm/differenceInCalendarISOWeekYears/index.js","./differenceInCalendarISOWeeks/index.js":"node_modules/date-fns/esm/differenceInCalendarISOWeeks/index.js","./differenceInCalendarMonths/index.js":"node_modules/date-fns/esm/differenceInCalendarMonths/index.js","./differenceInCalendarQuarters/index.js":"node_modules/date-fns/esm/differenceInCalendarQuarters/index.js","./differenceInCalendarWeeks/index.js":"node_modules/date-fns/esm/differenceInCalendarWeeks/index.js","./differenceInCalendarYears/index.js":"node_modules/date-fns/esm/differenceInCalendarYears/index.js","./differenceInDays/index.js":"node_modules/date-fns/esm/differenceInDays/index.js","./differenceInHours/index.js":"node_modules/date-fns/esm/differenceInHours/index.js","./differenceInISOWeekYears/index.js":"node_modules/date-fns/esm/differenceInISOWeekYears/index.js","./differenceInMilliseconds/index.js":"node_modules/date-fns/esm/differenceInMilliseconds/index.js","./differenceInMinutes/index.js":"node_modules/date-fns/esm/differenceInMinutes/index.js","./differenceInMonths/index.js":"node_modules/date-fns/esm/differenceInMonths/index.js","./differenceInQuarters/index.js":"node_modules/date-fns/esm/differenceInQuarters/index.js","./differenceInSeconds/index.js":"node_modules/date-fns/esm/differenceInSeconds/index.js","./differenceInWeeks/index.js":"node_modules/date-fns/esm/differenceInWeeks/index.js","./differenceInYears/index.js":"node_modules/date-fns/esm/differenceInYears/index.js","./eachDayOfInterval/index.js":"node_modules/date-fns/esm/eachDayOfInterval/index.js","./eachHourOfInterval/index.js":"node_modules/date-fns/esm/eachHourOfInterval/index.js","./eachMonthOfInterval/index.js":"node_modules/date-fns/esm/eachMonthOfInterval/index.js","./eachQuarterOfInterval/index.js":"node_modules/date-fns/esm/eachQuarterOfInterval/index.js","./eachWeekOfInterval/index.js":"node_modules/date-fns/esm/eachWeekOfInterval/index.js","./eachWeekendOfInterval/index.js":"node_modules/date-fns/esm/eachWeekendOfInterval/index.js","./eachWeekendOfMonth/index.js":"node_modules/date-fns/esm/eachWeekendOfMonth/index.js","./eachWeekendOfYear/index.js":"node_modules/date-fns/esm/eachWeekendOfYear/index.js","./eachYearOfInterval/index.js":"node_modules/date-fns/esm/eachYearOfInterval/index.js","./endOfDay/index.js":"node_modules/date-fns/esm/endOfDay/index.js","./endOfDecade/index.js":"node_modules/date-fns/esm/endOfDecade/index.js","./endOfHour/index.js":"node_modules/date-fns/esm/endOfHour/index.js","./endOfISOWeek/index.js":"node_modules/date-fns/esm/endOfISOWeek/index.js","./endOfISOWeekYear/index.js":"node_modules/date-fns/esm/endOfISOWeekYear/index.js","./endOfMinute/index.js":"node_modules/date-fns/esm/endOfMinute/index.js","./endOfMonth/index.js":"node_modules/date-fns/esm/endOfMonth/index.js","./endOfQuarter/index.js":"node_modules/date-fns/esm/endOfQuarter/index.js","./endOfSecond/index.js":"node_modules/date-fns/esm/endOfSecond/index.js","./endOfToday/index.js":"node_modules/date-fns/esm/endOfToday/index.js","./endOfTomorrow/index.js":"node_modules/date-fns/esm/endOfTomorrow/index.js","./endOfWeek/index.js":"node_modules/date-fns/esm/endOfWeek/index.js","./endOfYear/index.js":"node_modules/date-fns/esm/endOfYear/index.js","./endOfYesterday/index.js":"node_modules/date-fns/esm/endOfYesterday/index.js","./format/index.js":"node_modules/date-fns/esm/format/index.js","./formatDistance/index.js":"node_modules/date-fns/esm/formatDistance/index.js","./formatDistanceStrict/index.js":"node_modules/date-fns/esm/formatDistanceStrict/index.js","./formatDistanceToNow/index.js":"node_modules/date-fns/esm/formatDistanceToNow/index.js","./formatDistanceToNowStrict/index.js":"node_modules/date-fns/esm/formatDistanceToNowStrict/index.js","./formatDuration/index.js":"node_modules/date-fns/esm/formatDuration/index.js","./formatISO/index.js":"node_modules/date-fns/esm/formatISO/index.js","./formatISO9075/index.js":"node_modules/date-fns/esm/formatISO9075/index.js","./formatISODuration/index.js":"node_modules/date-fns/esm/formatISODuration/index.js","./formatRFC3339/index.js":"node_modules/date-fns/esm/formatRFC3339/index.js","./formatRFC7231/index.js":"node_modules/date-fns/esm/formatRFC7231/index.js","./formatRelative/index.js":"node_modules/date-fns/esm/formatRelative/index.js","./fromUnixTime/index.js":"node_modules/date-fns/esm/fromUnixTime/index.js","./getDate/index.js":"node_modules/date-fns/esm/getDate/index.js","./getDay/index.js":"node_modules/date-fns/esm/getDay/index.js","./getDayOfYear/index.js":"node_modules/date-fns/esm/getDayOfYear/index.js","./getDaysInMonth/index.js":"node_modules/date-fns/esm/getDaysInMonth/index.js","./getDaysInYear/index.js":"node_modules/date-fns/esm/getDaysInYear/index.js","./getDecade/index.js":"node_modules/date-fns/esm/getDecade/index.js","./getHours/index.js":"node_modules/date-fns/esm/getHours/index.js","./getISODay/index.js":"node_modules/date-fns/esm/getISODay/index.js","./getISOWeek/index.js":"node_modules/date-fns/esm/getISOWeek/index.js","./getISOWeekYear/index.js":"node_modules/date-fns/esm/getISOWeekYear/index.js","./getISOWeeksInYear/index.js":"node_modules/date-fns/esm/getISOWeeksInYear/index.js","./getMilliseconds/index.js":"node_modules/date-fns/esm/getMilliseconds/index.js","./getMinutes/index.js":"node_modules/date-fns/esm/getMinutes/index.js","./getMonth/index.js":"node_modules/date-fns/esm/getMonth/index.js","./getOverlappingDaysInIntervals/index.js":"node_modules/date-fns/esm/getOverlappingDaysInIntervals/index.js","./getQuarter/index.js":"node_modules/date-fns/esm/getQuarter/index.js","./getSeconds/index.js":"node_modules/date-fns/esm/getSeconds/index.js","./getTime/index.js":"node_modules/date-fns/esm/getTime/index.js","./getUnixTime/index.js":"node_modules/date-fns/esm/getUnixTime/index.js","./getWeek/index.js":"node_modules/date-fns/esm/getWeek/index.js","./getWeekOfMonth/index.js":"node_modules/date-fns/esm/getWeekOfMonth/index.js","./getWeekYear/index.js":"node_modules/date-fns/esm/getWeekYear/index.js","./getWeeksInMonth/index.js":"node_modules/date-fns/esm/getWeeksInMonth/index.js","./getYear/index.js":"node_modules/date-fns/esm/getYear/index.js","./intervalToDuration/index.js":"node_modules/date-fns/esm/intervalToDuration/index.js","./isAfter/index.js":"node_modules/date-fns/esm/isAfter/index.js","./isBefore/index.js":"node_modules/date-fns/esm/isBefore/index.js","./isDate/index.js":"node_modules/date-fns/esm/isDate/index.js","./isEqual/index.js":"node_modules/date-fns/esm/isEqual/index.js","./isExists/index.js":"node_modules/date-fns/esm/isExists/index.js","./isFirstDayOfMonth/index.js":"node_modules/date-fns/esm/isFirstDayOfMonth/index.js","./isFriday/index.js":"node_modules/date-fns/esm/isFriday/index.js","./isFuture/index.js":"node_modules/date-fns/esm/isFuture/index.js","./isLastDayOfMonth/index.js":"node_modules/date-fns/esm/isLastDayOfMonth/index.js","./isLeapYear/index.js":"node_modules/date-fns/esm/isLeapYear/index.js","./isMatch/index.js":"node_modules/date-fns/esm/isMatch/index.js","./isMonday/index.js":"node_modules/date-fns/esm/isMonday/index.js","./isPast/index.js":"node_modules/date-fns/esm/isPast/index.js","./isSameDay/index.js":"node_modules/date-fns/esm/isSameDay/index.js","./isSameHour/index.js":"node_modules/date-fns/esm/isSameHour/index.js","./isSameISOWeek/index.js":"node_modules/date-fns/esm/isSameISOWeek/index.js","./isSameISOWeekYear/index.js":"node_modules/date-fns/esm/isSameISOWeekYear/index.js","./isSameMinute/index.js":"node_modules/date-fns/esm/isSameMinute/index.js","./isSameMonth/index.js":"node_modules/date-fns/esm/isSameMonth/index.js","./isSameQuarter/index.js":"node_modules/date-fns/esm/isSameQuarter/index.js","./isSameSecond/index.js":"node_modules/date-fns/esm/isSameSecond/index.js","./isSameWeek/index.js":"node_modules/date-fns/esm/isSameWeek/index.js","./isSameYear/index.js":"node_modules/date-fns/esm/isSameYear/index.js","./isSaturday/index.js":"node_modules/date-fns/esm/isSaturday/index.js","./isSunday/index.js":"node_modules/date-fns/esm/isSunday/index.js","./isThisHour/index.js":"node_modules/date-fns/esm/isThisHour/index.js","./isThisISOWeek/index.js":"node_modules/date-fns/esm/isThisISOWeek/index.js","./isThisMinute/index.js":"node_modules/date-fns/esm/isThisMinute/index.js","./isThisMonth/index.js":"node_modules/date-fns/esm/isThisMonth/index.js","./isThisQuarter/index.js":"node_modules/date-fns/esm/isThisQuarter/index.js","./isThisSecond/index.js":"node_modules/date-fns/esm/isThisSecond/index.js","./isThisWeek/index.js":"node_modules/date-fns/esm/isThisWeek/index.js","./isThisYear/index.js":"node_modules/date-fns/esm/isThisYear/index.js","./isThursday/index.js":"node_modules/date-fns/esm/isThursday/index.js","./isToday/index.js":"node_modules/date-fns/esm/isToday/index.js","./isTomorrow/index.js":"node_modules/date-fns/esm/isTomorrow/index.js","./isTuesday/index.js":"node_modules/date-fns/esm/isTuesday/index.js","./isValid/index.js":"node_modules/date-fns/esm/isValid/index.js","./isWednesday/index.js":"node_modules/date-fns/esm/isWednesday/index.js","./isWeekend/index.js":"node_modules/date-fns/esm/isWeekend/index.js","./isWithinInterval/index.js":"node_modules/date-fns/esm/isWithinInterval/index.js","./isYesterday/index.js":"node_modules/date-fns/esm/isYesterday/index.js","./lastDayOfDecade/index.js":"node_modules/date-fns/esm/lastDayOfDecade/index.js","./lastDayOfISOWeek/index.js":"node_modules/date-fns/esm/lastDayOfISOWeek/index.js","./lastDayOfISOWeekYear/index.js":"node_modules/date-fns/esm/lastDayOfISOWeekYear/index.js","./lastDayOfMonth/index.js":"node_modules/date-fns/esm/lastDayOfMonth/index.js","./lastDayOfQuarter/index.js":"node_modules/date-fns/esm/lastDayOfQuarter/index.js","./lastDayOfWeek/index.js":"node_modules/date-fns/esm/lastDayOfWeek/index.js","./lastDayOfYear/index.js":"node_modules/date-fns/esm/lastDayOfYear/index.js","./lightFormat/index.js":"node_modules/date-fns/esm/lightFormat/index.js","./max/index.js":"node_modules/date-fns/esm/max/index.js","./min/index.js":"node_modules/date-fns/esm/min/index.js","./parse/index.js":"node_modules/date-fns/esm/parse/index.js","./parseISO/index.js":"node_modules/date-fns/esm/parseISO/index.js","./parseJSON/index.js":"node_modules/date-fns/esm/parseJSON/index.js","./roundToNearestMinutes/index.js":"node_modules/date-fns/esm/roundToNearestMinutes/index.js","./set/index.js":"node_modules/date-fns/esm/set/index.js","./setDate/index.js":"node_modules/date-fns/esm/setDate/index.js","./setDay/index.js":"node_modules/date-fns/esm/setDay/index.js","./setDayOfYear/index.js":"node_modules/date-fns/esm/setDayOfYear/index.js","./setHours/index.js":"node_modules/date-fns/esm/setHours/index.js","./setISODay/index.js":"node_modules/date-fns/esm/setISODay/index.js","./setISOWeek/index.js":"node_modules/date-fns/esm/setISOWeek/index.js","./setISOWeekYear/index.js":"node_modules/date-fns/esm/setISOWeekYear/index.js","./setMilliseconds/index.js":"node_modules/date-fns/esm/setMilliseconds/index.js","./setMinutes/index.js":"node_modules/date-fns/esm/setMinutes/index.js","./setMonth/index.js":"node_modules/date-fns/esm/setMonth/index.js","./setQuarter/index.js":"node_modules/date-fns/esm/setQuarter/index.js","./setSeconds/index.js":"node_modules/date-fns/esm/setSeconds/index.js","./setWeek/index.js":"node_modules/date-fns/esm/setWeek/index.js","./setWeekYear/index.js":"node_modules/date-fns/esm/setWeekYear/index.js","./setYear/index.js":"node_modules/date-fns/esm/setYear/index.js","./startOfDay/index.js":"node_modules/date-fns/esm/startOfDay/index.js","./startOfDecade/index.js":"node_modules/date-fns/esm/startOfDecade/index.js","./startOfHour/index.js":"node_modules/date-fns/esm/startOfHour/index.js","./startOfISOWeek/index.js":"node_modules/date-fns/esm/startOfISOWeek/index.js","./startOfISOWeekYear/index.js":"node_modules/date-fns/esm/startOfISOWeekYear/index.js","./startOfMinute/index.js":"node_modules/date-fns/esm/startOfMinute/index.js","./startOfMonth/index.js":"node_modules/date-fns/esm/startOfMonth/index.js","./startOfQuarter/index.js":"node_modules/date-fns/esm/startOfQuarter/index.js","./startOfSecond/index.js":"node_modules/date-fns/esm/startOfSecond/index.js","./startOfToday/index.js":"node_modules/date-fns/esm/startOfToday/index.js","./startOfTomorrow/index.js":"node_modules/date-fns/esm/startOfTomorrow/index.js","./startOfWeek/index.js":"node_modules/date-fns/esm/startOfWeek/index.js","./startOfWeekYear/index.js":"node_modules/date-fns/esm/startOfWeekYear/index.js","./startOfYear/index.js":"node_modules/date-fns/esm/startOfYear/index.js","./startOfYesterday/index.js":"node_modules/date-fns/esm/startOfYesterday/index.js","./sub/index.js":"node_modules/date-fns/esm/sub/index.js","./subBusinessDays/index.js":"node_modules/date-fns/esm/subBusinessDays/index.js","./subDays/index.js":"node_modules/date-fns/esm/subDays/index.js","./subHours/index.js":"node_modules/date-fns/esm/subHours/index.js","./subISOWeekYears/index.js":"node_modules/date-fns/esm/subISOWeekYears/index.js","./subMilliseconds/index.js":"node_modules/date-fns/esm/subMilliseconds/index.js","./subMinutes/index.js":"node_modules/date-fns/esm/subMinutes/index.js","./subMonths/index.js":"node_modules/date-fns/esm/subMonths/index.js","./subQuarters/index.js":"node_modules/date-fns/esm/subQuarters/index.js","./subSeconds/index.js":"node_modules/date-fns/esm/subSeconds/index.js","./subWeeks/index.js":"node_modules/date-fns/esm/subWeeks/index.js","./subYears/index.js":"node_modules/date-fns/esm/subYears/index.js","./toDate/index.js":"node_modules/date-fns/esm/toDate/index.js","./constants/index.js":"node_modules/date-fns/esm/constants/index.js"}],"component/pages/jobDetail.js":[function(require,module,exports) {
+},{"./add/index.js":"node_modules/date-fns/esm/add/index.js","./addBusinessDays/index.js":"node_modules/date-fns/esm/addBusinessDays/index.js","./addDays/index.js":"node_modules/date-fns/esm/addDays/index.js","./addHours/index.js":"node_modules/date-fns/esm/addHours/index.js","./addISOWeekYears/index.js":"node_modules/date-fns/esm/addISOWeekYears/index.js","./addMilliseconds/index.js":"node_modules/date-fns/esm/addMilliseconds/index.js","./addMinutes/index.js":"node_modules/date-fns/esm/addMinutes/index.js","./addMonths/index.js":"node_modules/date-fns/esm/addMonths/index.js","./addQuarters/index.js":"node_modules/date-fns/esm/addQuarters/index.js","./addSeconds/index.js":"node_modules/date-fns/esm/addSeconds/index.js","./addWeeks/index.js":"node_modules/date-fns/esm/addWeeks/index.js","./addYears/index.js":"node_modules/date-fns/esm/addYears/index.js","./areIntervalsOverlapping/index.js":"node_modules/date-fns/esm/areIntervalsOverlapping/index.js","./closestIndexTo/index.js":"node_modules/date-fns/esm/closestIndexTo/index.js","./closestTo/index.js":"node_modules/date-fns/esm/closestTo/index.js","./compareAsc/index.js":"node_modules/date-fns/esm/compareAsc/index.js","./compareDesc/index.js":"node_modules/date-fns/esm/compareDesc/index.js","./differenceInBusinessDays/index.js":"node_modules/date-fns/esm/differenceInBusinessDays/index.js","./differenceInCalendarDays/index.js":"node_modules/date-fns/esm/differenceInCalendarDays/index.js","./differenceInCalendarISOWeekYears/index.js":"node_modules/date-fns/esm/differenceInCalendarISOWeekYears/index.js","./differenceInCalendarISOWeeks/index.js":"node_modules/date-fns/esm/differenceInCalendarISOWeeks/index.js","./differenceInCalendarMonths/index.js":"node_modules/date-fns/esm/differenceInCalendarMonths/index.js","./differenceInCalendarQuarters/index.js":"node_modules/date-fns/esm/differenceInCalendarQuarters/index.js","./differenceInCalendarWeeks/index.js":"node_modules/date-fns/esm/differenceInCalendarWeeks/index.js","./differenceInCalendarYears/index.js":"node_modules/date-fns/esm/differenceInCalendarYears/index.js","./differenceInDays/index.js":"node_modules/date-fns/esm/differenceInDays/index.js","./differenceInHours/index.js":"node_modules/date-fns/esm/differenceInHours/index.js","./differenceInISOWeekYears/index.js":"node_modules/date-fns/esm/differenceInISOWeekYears/index.js","./differenceInMilliseconds/index.js":"node_modules/date-fns/esm/differenceInMilliseconds/index.js","./differenceInMinutes/index.js":"node_modules/date-fns/esm/differenceInMinutes/index.js","./differenceInMonths/index.js":"node_modules/date-fns/esm/differenceInMonths/index.js","./differenceInQuarters/index.js":"node_modules/date-fns/esm/differenceInQuarters/index.js","./differenceInSeconds/index.js":"node_modules/date-fns/esm/differenceInSeconds/index.js","./differenceInWeeks/index.js":"node_modules/date-fns/esm/differenceInWeeks/index.js","./differenceInYears/index.js":"node_modules/date-fns/esm/differenceInYears/index.js","./eachDayOfInterval/index.js":"node_modules/date-fns/esm/eachDayOfInterval/index.js","./eachHourOfInterval/index.js":"node_modules/date-fns/esm/eachHourOfInterval/index.js","./eachMonthOfInterval/index.js":"node_modules/date-fns/esm/eachMonthOfInterval/index.js","./eachQuarterOfInterval/index.js":"node_modules/date-fns/esm/eachQuarterOfInterval/index.js","./eachWeekOfInterval/index.js":"node_modules/date-fns/esm/eachWeekOfInterval/index.js","./eachWeekendOfInterval/index.js":"node_modules/date-fns/esm/eachWeekendOfInterval/index.js","./eachWeekendOfMonth/index.js":"node_modules/date-fns/esm/eachWeekendOfMonth/index.js","./eachWeekendOfYear/index.js":"node_modules/date-fns/esm/eachWeekendOfYear/index.js","./eachYearOfInterval/index.js":"node_modules/date-fns/esm/eachYearOfInterval/index.js","./endOfDay/index.js":"node_modules/date-fns/esm/endOfDay/index.js","./endOfDecade/index.js":"node_modules/date-fns/esm/endOfDecade/index.js","./endOfHour/index.js":"node_modules/date-fns/esm/endOfHour/index.js","./endOfISOWeek/index.js":"node_modules/date-fns/esm/endOfISOWeek/index.js","./endOfISOWeekYear/index.js":"node_modules/date-fns/esm/endOfISOWeekYear/index.js","./endOfMinute/index.js":"node_modules/date-fns/esm/endOfMinute/index.js","./endOfMonth/index.js":"node_modules/date-fns/esm/endOfMonth/index.js","./endOfQuarter/index.js":"node_modules/date-fns/esm/endOfQuarter/index.js","./endOfSecond/index.js":"node_modules/date-fns/esm/endOfSecond/index.js","./endOfToday/index.js":"node_modules/date-fns/esm/endOfToday/index.js","./endOfTomorrow/index.js":"node_modules/date-fns/esm/endOfTomorrow/index.js","./endOfWeek/index.js":"node_modules/date-fns/esm/endOfWeek/index.js","./endOfYear/index.js":"node_modules/date-fns/esm/endOfYear/index.js","./endOfYesterday/index.js":"node_modules/date-fns/esm/endOfYesterday/index.js","./format/index.js":"node_modules/date-fns/esm/format/index.js","./formatDistance/index.js":"node_modules/date-fns/esm/formatDistance/index.js","./formatDistanceStrict/index.js":"node_modules/date-fns/esm/formatDistanceStrict/index.js","./formatDistanceToNow/index.js":"node_modules/date-fns/esm/formatDistanceToNow/index.js","./formatDistanceToNowStrict/index.js":"node_modules/date-fns/esm/formatDistanceToNowStrict/index.js","./formatDuration/index.js":"node_modules/date-fns/esm/formatDuration/index.js","./formatISO/index.js":"node_modules/date-fns/esm/formatISO/index.js","./formatISO9075/index.js":"node_modules/date-fns/esm/formatISO9075/index.js","./formatISODuration/index.js":"node_modules/date-fns/esm/formatISODuration/index.js","./formatRFC3339/index.js":"node_modules/date-fns/esm/formatRFC3339/index.js","./formatRFC7231/index.js":"node_modules/date-fns/esm/formatRFC7231/index.js","./formatRelative/index.js":"node_modules/date-fns/esm/formatRelative/index.js","./fromUnixTime/index.js":"node_modules/date-fns/esm/fromUnixTime/index.js","./getDate/index.js":"node_modules/date-fns/esm/getDate/index.js","./getDay/index.js":"node_modules/date-fns/esm/getDay/index.js","./getDayOfYear/index.js":"node_modules/date-fns/esm/getDayOfYear/index.js","./getDaysInMonth/index.js":"node_modules/date-fns/esm/getDaysInMonth/index.js","./getDaysInYear/index.js":"node_modules/date-fns/esm/getDaysInYear/index.js","./getDecade/index.js":"node_modules/date-fns/esm/getDecade/index.js","./getHours/index.js":"node_modules/date-fns/esm/getHours/index.js","./getISODay/index.js":"node_modules/date-fns/esm/getISODay/index.js","./getISOWeek/index.js":"node_modules/date-fns/esm/getISOWeek/index.js","./getISOWeekYear/index.js":"node_modules/date-fns/esm/getISOWeekYear/index.js","./getISOWeeksInYear/index.js":"node_modules/date-fns/esm/getISOWeeksInYear/index.js","./getMilliseconds/index.js":"node_modules/date-fns/esm/getMilliseconds/index.js","./getMinutes/index.js":"node_modules/date-fns/esm/getMinutes/index.js","./getMonth/index.js":"node_modules/date-fns/esm/getMonth/index.js","./getOverlappingDaysInIntervals/index.js":"node_modules/date-fns/esm/getOverlappingDaysInIntervals/index.js","./getQuarter/index.js":"node_modules/date-fns/esm/getQuarter/index.js","./getSeconds/index.js":"node_modules/date-fns/esm/getSeconds/index.js","./getTime/index.js":"node_modules/date-fns/esm/getTime/index.js","./getUnixTime/index.js":"node_modules/date-fns/esm/getUnixTime/index.js","./getWeek/index.js":"node_modules/date-fns/esm/getWeek/index.js","./getWeekOfMonth/index.js":"node_modules/date-fns/esm/getWeekOfMonth/index.js","./getWeekYear/index.js":"node_modules/date-fns/esm/getWeekYear/index.js","./getWeeksInMonth/index.js":"node_modules/date-fns/esm/getWeeksInMonth/index.js","./getYear/index.js":"node_modules/date-fns/esm/getYear/index.js","./intervalToDuration/index.js":"node_modules/date-fns/esm/intervalToDuration/index.js","./isAfter/index.js":"node_modules/date-fns/esm/isAfter/index.js","./isBefore/index.js":"node_modules/date-fns/esm/isBefore/index.js","./isDate/index.js":"node_modules/date-fns/esm/isDate/index.js","./isEqual/index.js":"node_modules/date-fns/esm/isEqual/index.js","./isExists/index.js":"node_modules/date-fns/esm/isExists/index.js","./isFirstDayOfMonth/index.js":"node_modules/date-fns/esm/isFirstDayOfMonth/index.js","./isFriday/index.js":"node_modules/date-fns/esm/isFriday/index.js","./isFuture/index.js":"node_modules/date-fns/esm/isFuture/index.js","./isLastDayOfMonth/index.js":"node_modules/date-fns/esm/isLastDayOfMonth/index.js","./isLeapYear/index.js":"node_modules/date-fns/esm/isLeapYear/index.js","./isMatch/index.js":"node_modules/date-fns/esm/isMatch/index.js","./isMonday/index.js":"node_modules/date-fns/esm/isMonday/index.js","./isPast/index.js":"node_modules/date-fns/esm/isPast/index.js","./isSameDay/index.js":"node_modules/date-fns/esm/isSameDay/index.js","./isSameHour/index.js":"node_modules/date-fns/esm/isSameHour/index.js","./isSameISOWeek/index.js":"node_modules/date-fns/esm/isSameISOWeek/index.js","./isSameISOWeekYear/index.js":"node_modules/date-fns/esm/isSameISOWeekYear/index.js","./isSameMinute/index.js":"node_modules/date-fns/esm/isSameMinute/index.js","./isSameMonth/index.js":"node_modules/date-fns/esm/isSameMonth/index.js","./isSameQuarter/index.js":"node_modules/date-fns/esm/isSameQuarter/index.js","./isSameSecond/index.js":"node_modules/date-fns/esm/isSameSecond/index.js","./isSameWeek/index.js":"node_modules/date-fns/esm/isSameWeek/index.js","./isSameYear/index.js":"node_modules/date-fns/esm/isSameYear/index.js","./isSaturday/index.js":"node_modules/date-fns/esm/isSaturday/index.js","./isSunday/index.js":"node_modules/date-fns/esm/isSunday/index.js","./isThisHour/index.js":"node_modules/date-fns/esm/isThisHour/index.js","./isThisISOWeek/index.js":"node_modules/date-fns/esm/isThisISOWeek/index.js","./isThisMinute/index.js":"node_modules/date-fns/esm/isThisMinute/index.js","./isThisMonth/index.js":"node_modules/date-fns/esm/isThisMonth/index.js","./isThisQuarter/index.js":"node_modules/date-fns/esm/isThisQuarter/index.js","./isThisSecond/index.js":"node_modules/date-fns/esm/isThisSecond/index.js","./isThisWeek/index.js":"node_modules/date-fns/esm/isThisWeek/index.js","./isThisYear/index.js":"node_modules/date-fns/esm/isThisYear/index.js","./isThursday/index.js":"node_modules/date-fns/esm/isThursday/index.js","./isToday/index.js":"node_modules/date-fns/esm/isToday/index.js","./isTomorrow/index.js":"node_modules/date-fns/esm/isTomorrow/index.js","./isTuesday/index.js":"node_modules/date-fns/esm/isTuesday/index.js","./isValid/index.js":"node_modules/date-fns/esm/isValid/index.js","./isWednesday/index.js":"node_modules/date-fns/esm/isWednesday/index.js","./isWeekend/index.js":"node_modules/date-fns/esm/isWeekend/index.js","./isWithinInterval/index.js":"node_modules/date-fns/esm/isWithinInterval/index.js","./isYesterday/index.js":"node_modules/date-fns/esm/isYesterday/index.js","./lastDayOfDecade/index.js":"node_modules/date-fns/esm/lastDayOfDecade/index.js","./lastDayOfISOWeek/index.js":"node_modules/date-fns/esm/lastDayOfISOWeek/index.js","./lastDayOfISOWeekYear/index.js":"node_modules/date-fns/esm/lastDayOfISOWeekYear/index.js","./lastDayOfMonth/index.js":"node_modules/date-fns/esm/lastDayOfMonth/index.js","./lastDayOfQuarter/index.js":"node_modules/date-fns/esm/lastDayOfQuarter/index.js","./lastDayOfWeek/index.js":"node_modules/date-fns/esm/lastDayOfWeek/index.js","./lastDayOfYear/index.js":"node_modules/date-fns/esm/lastDayOfYear/index.js","./lightFormat/index.js":"node_modules/date-fns/esm/lightFormat/index.js","./max/index.js":"node_modules/date-fns/esm/max/index.js","./min/index.js":"node_modules/date-fns/esm/min/index.js","./parse/index.js":"node_modules/date-fns/esm/parse/index.js","./parseISO/index.js":"node_modules/date-fns/esm/parseISO/index.js","./parseJSON/index.js":"node_modules/date-fns/esm/parseJSON/index.js","./roundToNearestMinutes/index.js":"node_modules/date-fns/esm/roundToNearestMinutes/index.js","./set/index.js":"node_modules/date-fns/esm/set/index.js","./setDate/index.js":"node_modules/date-fns/esm/setDate/index.js","./setDay/index.js":"node_modules/date-fns/esm/setDay/index.js","./setDayOfYear/index.js":"node_modules/date-fns/esm/setDayOfYear/index.js","./setHours/index.js":"node_modules/date-fns/esm/setHours/index.js","./setISODay/index.js":"node_modules/date-fns/esm/setISODay/index.js","./setISOWeek/index.js":"node_modules/date-fns/esm/setISOWeek/index.js","./setISOWeekYear/index.js":"node_modules/date-fns/esm/setISOWeekYear/index.js","./setMilliseconds/index.js":"node_modules/date-fns/esm/setMilliseconds/index.js","./setMinutes/index.js":"node_modules/date-fns/esm/setMinutes/index.js","./setMonth/index.js":"node_modules/date-fns/esm/setMonth/index.js","./setQuarter/index.js":"node_modules/date-fns/esm/setQuarter/index.js","./setSeconds/index.js":"node_modules/date-fns/esm/setSeconds/index.js","./setWeek/index.js":"node_modules/date-fns/esm/setWeek/index.js","./setWeekYear/index.js":"node_modules/date-fns/esm/setWeekYear/index.js","./setYear/index.js":"node_modules/date-fns/esm/setYear/index.js","./startOfDay/index.js":"node_modules/date-fns/esm/startOfDay/index.js","./startOfDecade/index.js":"node_modules/date-fns/esm/startOfDecade/index.js","./startOfHour/index.js":"node_modules/date-fns/esm/startOfHour/index.js","./startOfISOWeek/index.js":"node_modules/date-fns/esm/startOfISOWeek/index.js","./startOfISOWeekYear/index.js":"node_modules/date-fns/esm/startOfISOWeekYear/index.js","./startOfMinute/index.js":"node_modules/date-fns/esm/startOfMinute/index.js","./startOfMonth/index.js":"node_modules/date-fns/esm/startOfMonth/index.js","./startOfQuarter/index.js":"node_modules/date-fns/esm/startOfQuarter/index.js","./startOfSecond/index.js":"node_modules/date-fns/esm/startOfSecond/index.js","./startOfToday/index.js":"node_modules/date-fns/esm/startOfToday/index.js","./startOfTomorrow/index.js":"node_modules/date-fns/esm/startOfTomorrow/index.js","./startOfWeek/index.js":"node_modules/date-fns/esm/startOfWeek/index.js","./startOfWeekYear/index.js":"node_modules/date-fns/esm/startOfWeekYear/index.js","./startOfYear/index.js":"node_modules/date-fns/esm/startOfYear/index.js","./startOfYesterday/index.js":"node_modules/date-fns/esm/startOfYesterday/index.js","./sub/index.js":"node_modules/date-fns/esm/sub/index.js","./subBusinessDays/index.js":"node_modules/date-fns/esm/subBusinessDays/index.js","./subDays/index.js":"node_modules/date-fns/esm/subDays/index.js","./subHours/index.js":"node_modules/date-fns/esm/subHours/index.js","./subISOWeekYears/index.js":"node_modules/date-fns/esm/subISOWeekYears/index.js","./subMilliseconds/index.js":"node_modules/date-fns/esm/subMilliseconds/index.js","./subMinutes/index.js":"node_modules/date-fns/esm/subMinutes/index.js","./subMonths/index.js":"node_modules/date-fns/esm/subMonths/index.js","./subQuarters/index.js":"node_modules/date-fns/esm/subQuarters/index.js","./subSeconds/index.js":"node_modules/date-fns/esm/subSeconds/index.js","./subWeeks/index.js":"node_modules/date-fns/esm/subWeeks/index.js","./subYears/index.js":"node_modules/date-fns/esm/subYears/index.js","./toDate/index.js":"node_modules/date-fns/esm/toDate/index.js","./constants/index.js":"node_modules/date-fns/esm/constants/index.js"}],"component/pages/jobCards.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _GithubContext = require("../GithubContext");
+
+var _dateFns = require("date-fns");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const JobCardStyle = _styledComponents.default.div`
+display: flex;
+fle-direction: row;
+align-items: center;
+gap: 2rem;
+border: 1px solid;
+background: #FFFFFF;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+border-radius: 4px;
+border-style: none;
+margin-block-end: 1rem;
+padding: 1rem;
+a {
+    text-decoration: none;
+    color: black;
+}
+img{
+   max-width: 50px;
+   max-height: 50px;
+    border: 1px solid;
+    border-style: none;
+    border-radius: 4px;
+}
+`;
+const DivStyle = _styledComponents.default.div`
+.type{ 
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 14px;
+    border: 1px solid #334680;
+    box-sizing: border-box;
+    border-radius: 4px;
+    max-width: 32%;
+  padding: 0.3rem;
+}
+}
+`;
+
+function jobCards() {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GithubContext.Context);
+  const {
+    jobs,
+    loading,
+    description,
+    fulltime,
+    location
+  } = state;
+
+  const formattedDate = date => {
+    return (0, _dateFns.formatDistance)(new Date(date), new Date());
+  };
+
+  (0, _react.useEffect)(() => {
+    async function fetchJobList() {
+      const URL = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${description}&location=${location}&full_time=${fulltime}`;
+      const res = await fetch(URL);
+      console.log(res);
+      const jobList = await res.json();
+      dispatch({
+        type: 'LOAD_JSON',
+        jobs: jobList
+      });
+    }
+
+    fetchJobList();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement("div", null, loading && /*#__PURE__*/_react.default.createElement("p", null, "Loading..."), !loading && jobs.map(list => /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `job/${list.id}`,
+    href: list.company_url,
+    key: list.id,
+    className: "job"
+  }, /*#__PURE__*/_react.default.createElement(JobCardStyle, {
+    key: list.id
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: list.company_logo
+  }), /*#__PURE__*/_react.default.createElement(DivStyle, null, /*#__PURE__*/_react.default.createElement("p", null, list.location), /*#__PURE__*/_react.default.createElement("h3", null, list.title), /*#__PURE__*/_react.default.createElement("p", {
+    className: "type"
+  }, list.type)), /*#__PURE__*/_react.default.createElement("div", {
+    className: "job-meta"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "job-location"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "icon"
+  }, /*#__PURE__*/_react.default.createElement("i", {
+    className: "ri-earth-fill"
+  })), list.location), /*#__PURE__*/_react.default.createElement("div", {
+    className: "job-date"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "icon"
+  }, /*#__PURE__*/_react.default.createElement("i", {
+    className: "ri-timer-2-line"
+  })), /*#__PURE__*/_react.default.createElement("time", {
+    dateTime: list.created_at
+  }, formattedDate(list.created_at))))))));
+}
+
+var _default = jobCards;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js","date-fns":"node_modules/date-fns/esm/index.js"}],"component/pages/filterLocation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _GithubContext = require("../GithubContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const LocationStyle = _styledComponents.default.form`
+display: flex;
+flex-direction: column;
+`;
+
+function filterLocation() {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GithubContext.Context);
+  const {
+    fulltime
+  } = state;
+  const [selectedCity, setSelectedCity] = (0, _react.useState)(null);
+  const [location, setLocation] = (0, _react.useState)("");
+
+  const addFilter = filter => {
+    switch (filter.type) {
+      case "LOCATION":
+        dispatch(filter.value);
+        break;
+
+      case "FULLTIME":
+        dispatch(filter.value);
+        break;
+
+      case "DESCRIPTION":
+        dispatch(filter.value);
+        break;
+    }
+  };
+
+  const handleCity = location => {
+    if (selectedCity && location.id === selectedCity.id) {
+      setSelectedCity(null);
+      addFilter({
+        type: "LOCATION",
+        value: ""
+      });
+    } else {
+      setSelectedCity(location);
+      addFilter({
+        type: "LOCATION",
+        value: location.name
+      });
+    }
+  };
+
+  const handleLocation = e => {
+    if (e.key === "Enter") {
+      setSelectedCity(null);
+      addFilter({
+        type: "LOCATION",
+        value: location
+      });
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(!fulltime);
+    addFilter({
+      type: "FULLTIME",
+      value: false
+    });
+  };
+
+  (0, _react.useEffect)(() => {
+    setSelectedCity(locations[0]);
+    addFilter({
+      type: "CITY",
+      value: locations[0]
+    });
+  }, []);
+  const locations = [{
+    id: 1,
+    name: "London"
+  }, {
+    id: 2,
+    name: "Amsterdam"
+  }, {
+    id: 3,
+    name: "New York"
+  }, {
+    id: 4,
+    name: "Berlin"
+  }];
+  return /*#__PURE__*/_react.default.createElement(LocationStyle, {
+    onSubmit: handleClick
+  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    id: "fulltime",
+    checked: fulltime,
+    onChange: handleClick
+  }), "Full time"), /*#__PURE__*/_react.default.createElement("label", null, "Location"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "city",
+    value: location,
+    onChange: e => setLocation(e.target.value),
+    onKeyDown: handleLocation,
+    placeholder: "City, state, zip code or country"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "cities"
+  }, locations.map(location => /*#__PURE__*/_react.default.createElement("div", {
+    className: "checkbox",
+    key: location.id
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    checked: selectedCity ? location.id === selectedCity.id : false,
+    id: location.id,
+    onChange: () => handleCity(location)
+  }), /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: location.id
+  }, location.name)))));
+}
+
+var _default = filterLocation;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/pages/SearchBar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _GithubContext = require("../GithubContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const FormStyle = _styledComponents.default.form`
+max-width: 60%;
+min-width: 60%;
+margin: auto;
+padding: 2rem;
+fieldset {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    border-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+input {
+    border-style: none;
+    width: 100%;
+}
+button {
+    background: #1E86FF;
+    border-radius: 4px;
+    color: #ffffff;
+    width: 100px;
+    
+    padding:0.5rem;
+    border-style: none;
+}
+`;
+
+function SearchBar({
+  addFilter
+}) {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_GithubContext.Context);
+  const {
+    lists
+  } = state;
+  const [description, setDescription] = (0, _react.useState)("");
+
+  const handleSearch = e => {
+    if (e.key === "Enter") {
+      addFilter({
+        type: "DESCRIPTION",
+        value: description
+      });
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(FormStyle, {
+    onSubmit: handleSearch
+  }, /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    value: description,
+    onChange: e => setDescription(e.target.value),
+    placeholder: "Title, companies, expertise",
+    onKeyDown: handleSearch
+  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")));
+}
+
+var _default = SearchBar;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../GithubContext":"component/GithubContext.js"}],"component/PageLink.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _jobCards = _interopRequireDefault(require("./pages/jobCards"));
+
+var _filterLocation = _interopRequireDefault(require("./pages/filterLocation"));
+
+var _SearchBar = _interopRequireDefault(require("./pages/SearchBar"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const MainStyle = _styledComponents.default.main`
+display: flex;
+gap: 3rem;
+.location {
+    flex-basis: 30%;
+}
+.jobCard {
+    flex-basis: 40%;
+}
+`;
+
+function PageLink() {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "App"
+  }, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement(_SearchBar.default, null)), /*#__PURE__*/_react.default.createElement(MainStyle, null, /*#__PURE__*/_react.default.createElement(_filterLocation.default, {
+    className: "location"
+  }), /*#__PURE__*/_react.default.createElement(_jobCards.default, {
+    className: "jobCard"
+  })));
+}
+
+var _default = PageLink;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./pages/jobCards":"component/pages/jobCards.js","./pages/filterLocation":"component/pages/filterLocation.js","./pages/SearchBar":"component/pages/SearchBar.js"}],"component/pages/jobDetail.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54418,45 +54440,35 @@ time {
 }
 `;
 
-function jobDetail() {
+function jobDetail({
+  jobId
+}) {
   const {
     state,
     dispatch
   } = (0, _react.useContext)(_GithubContext.Context);
   const {
-    details,
     loading,
     jobs
   } = state;
-  const [job, setJob] = useState(null);
+
+  const findOneJob = async id => {
+    const API_URL = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions/${id}.json`;
+    const response = await fetch(API_URL);
+    const jobDetails = await response.json();
+    dispatch({
+      type: 'LOAD_DETAILS',
+      jobDetails
+    });
+  };
 
   const getJobDetail = async () => {
-    setLoading(true);
-
-    try {
-      const job = await findOneJob(jobId);
-      setJob(job);
-      dispatch(false);
-    } catch (e) {
-      console.log(`Error`, e);
-      setLoading(false);
-    }
+    const job = await findOneJob(jobId);
+    dispatch(job);
   };
 
   (0, _react.useEffect)(() => {
     getJobDetail();
-  }, []);
-  (0, _react.useEffect)(() => {
-    async function fetchDetails() {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
-      const jobDetails = await response.json();
-      dispatch({
-        type: 'LOAD_DETAILS',
-        details: jobDetails
-      });
-    }
-
-    fetchDetails();
   }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "details"
@@ -54469,7 +54481,11 @@ function jobDetail() {
     to: "/"
   }, /*#__PURE__*/_react.default.createElement("i", {
     className: "ri-arrow-left-line"
-  }), "Back to search"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, "How to Apply"), /*#__PURE__*/_react.default.createElement("p", null, job.how_to_apply))), /*#__PURE__*/_react.default.createElement("div", {
+  }), "Back to search"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, "How to Apply"), /*#__PURE__*/_react.default.createElement("p", {
+    dangerouslySetInnerHTML: {
+      __html: job.how_to_apply
+    }
+  }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "content"
   }, /*#__PURE__*/_react.default.createElement("h2", null, job.title), /*#__PURE__*/_react.default.createElement("div", {
     className: true
@@ -54489,8 +54505,11 @@ function jobDetail() {
   }, /*#__PURE__*/_react.default.createElement("i", {
     className: "ri-earth-fill"
   }), /*#__PURE__*/_react.default.createElement("span", null, job.location))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "description"
-  }, /*#__PURE__*/_react.default.createElement("p", null, job.description))))));
+    className: "description",
+    dangerouslySetInnerHTML: {
+      __html: job.description
+    }
+  })))));
 }
 
 var _default = jobDetail;
@@ -54568,7 +54587,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64019" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49900" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../GithubContext'
 import { Link } from 'react-router-dom'
 import { formatDistance } from 'date-fns'
@@ -16,36 +16,25 @@ time {
     color: #B7BCCE
 }
 `;
-function jobDetail() {
+function jobDetail({ jobId }) {
     const { state, dispatch } = useContext(Context)
-    const { details, loading, jobs } = state
-    const [job, setJob] = useState(null);
+    const { loading, jobs } = state
+
+    const findOneJob = async (id) => {
+        const API_URL = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions/${id}.json`;
+        const response = await fetch(API_URL);
+        const jobDetails = await response.json()
+        dispatch({ type: 'LOAD_DETAILS', jobDetails })
+    };
 
     const getJobDetail = async () => {
-        setLoading(true);
-        try {
-            const job = await findOneJob(jobId);
-            setJob(job);
-            dispatch(false);
-        } catch (e) {
-            console.log(`Error`, e);
-            setLoading(false);
-        }
+        const job = await findOneJob(jobId);
+        dispatch(job);
     };
 
     useEffect(() => {
         getJobDetail();
     }, []);
-
-
-    useEffect(() => {
-        async function fetchDetails() {
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=ruby&page=1');
-            const jobDetails = await response.json();
-            dispatch({ type: 'LOAD_DETAILS', details: jobDetails })
-        }
-        fetchDetails()
-    }, [])
 
     return (
         <div className='details'>
@@ -59,7 +48,7 @@ function jobDetail() {
                         </Link>
                         <div>
                             <h3>How to Apply</h3>
-                            <p>{job.how_to_apply}</p>
+                            <p dangerouslySetInnerHTML={{ __html: job.how_to_apply }}></p>
                         </div>
                     </div>
                     <div className="content">
@@ -81,8 +70,8 @@ function jobDetail() {
                                 <span>{job.location}</span>
                             </div>
                         </div>
-                        <div className='description'>
-                            <p>{job.description}</p>
+                        <div className='description'
+                            dangerouslySetInnerHTML={{ __html: job.description }}>
                         </div>
                     </div>
                 </DetailStyle >

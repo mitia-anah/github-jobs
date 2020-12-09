@@ -9,7 +9,7 @@ flex-direction: column;
 
 function filterLocation() {
     const { state, dispatch } = useContext(Context)
-    const { jobs, fulltime } = state
+    const { fulltime } = state
     const [selectedCity, setSelectedCity] = useState(null)
     const [location, setLocation] = useState("");
 
